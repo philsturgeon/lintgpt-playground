@@ -3,15 +3,15 @@ ruleset:
       v3_standards:
         rules: 
 
-        # Design
-        - "Endpoints MUST be nouns, not verbs."
-        - "Endpoints MUST be plural nouns, not singular."
-
-
         # Documentation
-        - "Endpoints MUST have a description, operationId, and summary."
-        - "Operation parameters MUST have a description."
-        - "Parameter descriptions MUST explain how the client uses the parameter, not what the parameter is. Bad: “the start date” Good: “set this parameter to the earliest date you want to receive records from”."
+        - "All operations MUST have a description, operationId, and summary."
+        # - "Operation parameters MUST have a description."
+        # - "Parameter descriptions MUST explain how the client uses the parameter, not what the parameter is. Bad: “the start date” Good: “set this parameter to the earliest date you want to receive records from”."
+
+        # Naming Conventions
+        - "All operation URL paths with multiple words MUST be named using hyphen-case (ie: /operation-events/{id})." 
+        - "All operation URL paths be nouns, not verbs."
+        - "All operation URL paths MUST be plural nouns, not singular."
 
         # Status Codes
         - 'POST requests should return a 201 or 202 status on success instead of 200.'
@@ -20,3 +20,6 @@ ruleset:
         # Completeness
         - "GET requests that have an ID at the end of their path (ie /teams/{teamID}) should define a 404."
         - "Properties that sounds like they are dates should use format: datetime or format: timestamp"
+
+        # Security
+        - "GET requests that have an ID in their path must not have a 'type: integer' or 'type: numeric', instead being a string with format: uuid or format: ulid. Good: '/things/61f423e5-3cac-4e82-a520-b233730637bb'. Bad: '/things/1234'."

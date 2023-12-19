@@ -24,7 +24,7 @@ tags:
   - name: Upload
 paths:
 
-  '/missing-404/{id}':
+  '/missing/{id}':
     get:
       operationId: get-missing-404
       summary: Get Missing 404
@@ -45,10 +45,10 @@ paths:
                     type: array
                     items: 
                       properties: 
-                        PlantedOn: 
+                        planted_on: 
                           type: string
 
-  '/upload':
+  '/units':
     post:
       summary: Upload a Unit
       description: 'Internal endpoint for iOS app only, to upload a unit from the field.'
@@ -104,7 +104,7 @@ paths:
                 $ref: '#/components/schemas/Generic_Problem'
 
 
-  '/maps/sites/{site}':
+  '/maps/site/{site}':
     parameters:
       - in: path
         name: site
