@@ -24,6 +24,30 @@ tags:
   - name: Upload
 paths:
 
+  '/missing-404/{id}':
+    get:
+      operationId: get-missing-404
+      summary: Get Missing 404
+      description: 'This endpoint is used to test the 404 missing rule.'
+      tags:
+        - Organization
+      security:
+        - "ApiKey": [ ]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  data: 
+                    type: array
+                    items: 
+                      properties: 
+                        PlantedOn: 
+                          type: string
+
   '/upload':
     post:
       summary: Upload a Unit
@@ -37,6 +61,7 @@ paths:
       parameters:
         - in: header
           name: Idempotency-Key
+          description: An Idempotency Key.
           schema:
             type: string
       requestBody:
@@ -78,193 +103,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Generic_Problem'
 
-  '/shopify/webhook/orders/paid':
-    post:
-      operationId: post-orders
-      summary: Save Shopify Order
-      description: 'Orders made through Shopify using the 2023-07 API version'
-      tags:
-        - Webhooks
-      requestBody:
-        content:
-          application/json:
-            schema:
-              properties:
-                id:
-                  type: string
-      responses:
-        '201':
-          description: OK
-        '400':
-          description: Bad Request
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Generic_Problem'
-        '401':
-          description: Unauthorized
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Generic_Problem'
-        '403':
-          description: Forbidden
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Generic_Problem'
-        '422':
-          description: Validation Failed
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Generic_Problem'
 
-  '/orders/{order}':
-    parameters:
-      - in: path
-        name: order
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 53f7bd7b-2ee2-4be4-a15b-e09c76a150f9
-    get:
-      operationId: get-orders-uuid
-      summary: Get Order
-      description: 'Orders are made by organizations to fund tree planting, and when trees are planted those orders will be marked as fullfilled. Orders may be partially fulfilled, and it is up to you if you wish to import those. Make sure to deduplicate the trees if you do.'
-      tags:
-        - Order
-      security:
-        - "ApiKey": [ ]
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Order'
-        '401':
-          description: Unauthorized
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Generic_Problem'
-        '404':
-          description: Organization not found.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Generic_Problem'
-
-  '/orgs/{organization}':
-    parameters:
-      - in: path
-        name: organization
-        description: Unique identifier given to an organization by Protect Earth support.
-        required: true
-        schema:
-          type: string
-          format: uuid
-          example: 61f423e5-3cac-4e82-a520-b233730637bb
-    get:
-      operationId: get-orgs-uuid
-      summary: Get Organization
-      description: 'Each funding partner in the tree tracker is an Organization, and they have their own unique URL, with a UUID. Protect Earth will provide you your UUID and that will act as your entrypoint. You will be able to poll this URL every week, or manually when we let you know, in order to see the status of your orders.'
-      tags:
-        - Organization
-      security:
-        - "ApiKey": [ ]
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Organization'
-        '401':
-          description: Unauthorized
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Generic_Problem'
-        '404':
-          description: Organization not found.
-          content:
-            application/problem+json:
-              schema:
-                $ref: '#/components/schemas/Generic_Problem'
-  '/sites':
-    get:
-      operationId: get-sites
-      summary: Get Sites
-      description: 'Sites are locations where trees are planted'
-      tags:
-        - Site
-      security: [ ]
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Site'
-  '/species':
-    get:
-      operationId: get-species
-      summary: Get Species
-      description: 'Species are the different types of trees'
-      tags:
-        - Species
-      security: [ ]
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Species'
-  '/supervisors':
-    get:
-      operationId: get-supervisors
-      summary: Get Supervisors
-      description: 'Get a list of all the supervisors'
-      tags:
-        - Supervisor
-      security: [ ]
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Supervisor'
-  '/maps/sites':
-    get:
-      operationId: get-project-pins
-      summary: A list of sites in GeoJSON format
-      description: 'As a potential donor I want to see that Protect Earth are doing real work, and seeing all the sites makes the project seem transparent and real.'
-      tags:
-        - Map
-      security: [ ]
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Generic_GeoJSON'
   '/maps/sites/{site}':
     parameters:
       - in: path
         name: site
-        description: Unique identifier given to a site by Protect Earth support.
+        description: The site ID
         required: true
         schema:
           type: string

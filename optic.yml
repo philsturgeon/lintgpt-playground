@@ -2,8 +2,21 @@ ruleset:
   - lintgpt: 
       v3_standards:
         rules: 
-         - "GET requests that have an ID at the end of their path (ie /teams/{teamID}) should define a 404."
-         - "Responses that return an array at their root MUST wrap that array in an object. ie {'users': []}"
-         - "Properties that sounds like they are dates should use format: datetime or format: timestamp"
-         - "When a property is named 'id', it should be more be made more specific: ie user_id, not just id"
-         - "Responses with 2xx status codes should not return errors." 
+
+        # Design
+        - "Endpoints MUST be nouns, not verbs."
+        - "Endpoints MUST be plural nouns, not singular."
+
+
+        # Documentation
+        - "Endpoints MUST have a description, operationId, and summary."
+        - "Operation parameters MUST have a description."
+        - "Parameter descriptions MUST explain how the client uses the parameter, not what the parameter is. Bad: “the start date” Good: “set this parameter to the earliest date you want to receive records from”."
+
+        # Status Codes
+        - 'POST requests should return a 201 or 202 status on success instead of 200.'
+        - '200 response bodies should not be used to return errors. Those must use 4xx or 5xx.'
+
+        # Completeness
+        - "GET requests that have an ID at the end of their path (ie /teams/{teamID}) should define a 404."
+        - "Properties that sounds like they are dates should use format: datetime or format: timestamp"
