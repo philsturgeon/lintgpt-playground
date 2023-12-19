@@ -1,0 +1,52 @@
+title: Organization
+type: object
+description: Any sort of company or charity that wants to pay for the planting of trees.
+required:
+  - id
+  - name
+  - orders
+properties:
+  id:
+    type: string
+    format: uuid
+    example: 61f423e5-3cac-4e82-a520-b233730637bb
+  name:
+    type: string
+    example: Your Amazing Company
+  orders:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 53f7bd7b-2ee2-4be4-a15b-e09c76a150f9
+        receivedOn:
+          type: string
+          format: date-time
+          example: '2021-11-22T16:37:15.000Z'
+        fulfilledOn:
+          type: string
+          format: date-time
+        isFulfilled:
+          type: boolean
+          default: false
+        orderedUnits:
+          type: string
+          example: '1000'
+        allocatedUnits:
+          type: string
+          example: '700'
+        href:
+          type: string
+          format: url
+          example: 'https://api.protect.earth/orders/53f7bd7b-2ee2-4be4-a15b-e09c76a150f9.json'
+      required:
+        - id
+        - receivedOn
+        - fulfilledOn
+        - isFulfilled
+        - orderedUnits
+        - allocatedUnits
+        - href

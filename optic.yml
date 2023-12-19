@@ -1,0 +1,9 @@
+ruleset:
+  - lintgpt: 
+      v3_standards:
+        rules: 
+         - "GET requests that have an ID at the end of their path (ie /teams/{teamID}) should define a 404."
+         - "Responses that return an array at their root MUST wrap that array in an object. ie {'users': []}"
+         - "Properties that sounds like they are dates should use format: datetime or format: timestamp"
+         - "When a property is named 'id', it should be more be made more specific: ie user_id, not just id"
+         - "Responses with 2xx status codes should not return errors." 

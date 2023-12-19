@@ -1,0 +1,103 @@
+title: Order
+type: object
+description: 'Orders are placed to fund the planting of trees. Once orders are fulfilled they should be imported. Feel free to import allocatedUnits from unfulfilled orders if you wish, but make sure you deduplicate by tree id.'
+required:
+  # @todo Should be able to have something be required for readOnly but spectator does not support that.
+  # https://github.com/hotmeteor/spectator/issues/112
+  # - id
+  - unitType
+  - orderedUnits
+  # - allocatedUnits
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  brand:
+    type: string
+    format: slug
+    pattern: '[a-z\-]+'
+    readOnly: true
+  type:
+    type: string
+    enum: [ manual, automatic ]
+  source:
+    type: string
+    enum: [ corporate, event, onlineStore ]
+  status:
+    type: string
+    enum: [ incomplete, fulfilled, complete ]
+  receivedOn:
+    type: string
+    format: date-time
+  fulfilledOn:
+    type: string
+    format: date-time
+    nullable: true
+  organization:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      name:
+        type: string
+      logo:
+        $ref: './components/photo.yaml'
+  plantedByName:
+    type: string
+  plantedForName:
+    type: string
+  personalisedCertificateMessage:
+    type: string
+  personalisedEmailMessage:
+    type: string
+  unitType:
+    type: string
+    enum: [ tree, biodiversity, hedgerow ]
+    example: tree
+  orderedUnits:
+    type: integer
+    minimum: 1
+    example: 600
+  allocatedUnits:
+    type: array
+    readOnly: true
+    items:
+      type: object
+      required:
+        - id
+        - unitType
+        - location
+        - photos
+      properties:
+        id:
+          type: string
+          example: o2j
+        unitType:
+          type: string
+          enum: [ tree, biodiversity, hedgerow ]
+          example: tree
+        location:
+          allOf:
+            - $ref: './components/coordinates.yaml'
+            - type: object
+              required:
+                - name
+                - what3words
+              properties:
+                name:
+                  type: string
+                  example: 'Hawling, England'
+                what3words:
+                  type: string
+                  example: headlight.hunches.heads
+        photos:
+          $ref: './components/photo.yaml'
+        species:
+          type: string
+          example: 'Silver Birch'
+        plantedOn:
+          type: string
+          format: date-time
+          example: '2021-12-26T15:20:42.000000Z'

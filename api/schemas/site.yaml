@@ -1,0 +1,34 @@
+title: Site
+type: object
+description: 'Sites are location where trees are planted.'
+required:
+  - name
+  - location
+  - url
+  - species
+  - allocatedUnits
+  - coordinates
+properties:
+  id:
+    type: string
+    format: uuid
+  name:
+    type: string
+    example: "Bourton on the Water"
+  location:
+    type: string
+    example: "Cheltenham, England"
+  url:
+    type: string
+    format: url
+    example: "https://www.protect.earth/projects/bourton-on-the-water"
+  species:
+    type: array
+    items:
+      $ref: './species.yaml'
+  allocatedUnits:
+    type: integer
+    format: int64
+    example: 710
+  coordinates:
+    $ref: './components/coordinates.yaml'

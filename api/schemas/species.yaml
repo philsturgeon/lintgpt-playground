@@ -1,0 +1,13 @@
+title: Species
+type: object
+description: 'Different types of units.'
+required:
+  - id
+  - name
+properties:
+  id:
+    type: string
+    format: uuid
+  name:
+    type: string
+    example: "Wild Cherry"

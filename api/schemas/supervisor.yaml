@@ -1,0 +1,13 @@
+title: Supervisor
+type: object
+description: 'A supervisor that runs a site.'
+required:
+  - id
+  - name
+properties:
+  id:
+    type: string
+    format: uuid
+  name:
+    type: string
+    example: "Phil Sturgeon"

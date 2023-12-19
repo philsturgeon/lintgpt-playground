@@ -1,0 +1,55 @@
+title: Upload
+
+allOf:
+  - $ref: './components/coordinates.yaml'
+  - type: object
+    description: 'Quick and dirty endpoint for specifically uploading trees from the supervisor mobile app.'
+
+    required:
+      - image_url
+      - site
+      - planted_at
+
+    properties:
+
+      image_url:
+        description: Uploaded image that the API will read from and download.
+        type: string
+        format: url
+
+      supervisor:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+        required:
+          - id
+
+      species:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+        required:
+          - id
+
+      site:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+        required:
+          - id
+
+      device_id:
+        type: string
+        description: Device ID of the mobile device that took the photo.
+
+      planted_at:
+        type: string
+        format: date-time
+        description: Date taken from image metadata, so it's as close to the actual planted date-time as possible.
+        example: 2019-08-24T14:15:22Z

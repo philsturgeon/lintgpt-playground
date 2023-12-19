@@ -1,0 +1,20 @@
+title: Photo
+type: object
+properties:
+  large:
+    type: object
+    required:
+      - url
+    properties:
+      height:
+        format: int64
+        type: integer
+        example: 3000
+      width:
+        format: int64
+        type: integer
+        example: 3000
+      url:
+        type: string
+        format: url
+        example: 'https://aws-bucket-name.s3.eu-west-2.amazonaws.com/trees/eyJpdiI6IkJ6S1hJcE40UGRUbFk4UXd6WVdkYWc9PSIsInZhbHVlIjoiUlk2Q05TalQ3WnpnTnNDbWhzbURIQT09IiwibWFjIjoiYmY1NmNhMDMzMDU2NTk3OTEwMzNiMzUxZjA1Mzc3MGMyYjFhM2ZhYWJhNjQyNjhiZjQxNDhiYWMyYjlhYWUzZSIsInRhZyI6IiJ9.jpg'
