@@ -14,23 +14,20 @@ servers:
   - url: 'https://hostname/'
     description: Hostname
 
-tags:
-  - name: Map
-  - name: Order
-  - name: Organization
-  - name: Site
-  - name: Species
-  - name: Supervisor
-  - name: Upload
 paths:
 
-  '/missing/{id}':
+  '/things/{id}':
     get:
-      operationId: get-missing-404
-      summary: Get Missing 404
-      description: 'This endpoint is used to test the 404 missing rule.'
-      tags:
-        - Organization
+      operationId: get-things
+      summary: Get things
+      parameters:
+        - in: path
+          name: id
+          description: The thing ID
+          required: true
+          schema:
+            type: integer
+            example: 123
       security:
         - "ApiKey": [ ]
       responses:
@@ -43,10 +40,6 @@ paths:
                 properties: 
                   data: 
                     type: array
-                    items: 
-                      properties: 
-                        planted_on: 
-                          type: string
 
   '/units':
     post:
@@ -54,13 +47,11 @@ paths:
       description: 'Internal endpoint for iOS app only, to upload a unit from the field.'
       operationId: post-upload
       x-internal: true
-      tags:
-        - Upload
       security:
         - "ApiKey": [ ]
       parameters:
         - in: header
-          name: Idempotency-Key
+          name: X-Idempotency-Key
           description: An Idempotency Key.
           schema:
             type: string
@@ -118,8 +109,6 @@ paths:
       operationId: get-unit-pins
       summary: A list of units at a site in GeoJSON format
       description: 'As a potential donor I want to see that Protect Earth are doing real work, and seeing all the units that have been planted at a site makes the project seem transparent and real.'
-      tags:
-        - Map
       security: [ ]
       responses:
         '200':

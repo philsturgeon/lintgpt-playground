@@ -9,17 +9,23 @@ ruleset:
         # - "Parameter descriptions MUST explain how the client uses the parameter, not what the parameter is. Bad: “the start date” Good: “set this parameter to the earliest date you want to receive records from”."
 
         # Naming Conventions
-        - "All operation URL paths with multiple words MUST be named using hyphen-case (ie: /operation-events/{id})." 
-        - "All operation URL paths be nouns, not verbs."
-        - "All operation URL paths MUST be plural nouns, not singular."
+        - "All operation URL path components with multiple words MUST be named using hyphen-case (ie: /operation-events/{id})." 
+        - "All operation URL path components MUST be nouns, not verbs."
+        - "All operation URL path components MUST be plural nouns, not singular."
 
         # Status Codes
-        - 'POST requests should return a 201 or 202 status on success instead of 200.'
-        - '200 response bodies should not be used to return errors. Those must use 4xx or 5xx.'
+        # - 'POST requests should return a 201 or 202 status on success instead of 200'
+        # - '200 response bodies should not be used to return errors. Those must use 4xx or 5xx'
 
         # Completeness
-        - "GET requests that have an ID at the end of their path (ie /teams/{teamID}) should define a 404."
-        - "Properties that sounds like they are dates should use format: datetime or format: timestamp"
+        # - "GET requests that have an ID at the end of their path (ie /teams/{teamID}) should define a 404"
+        # - "Properties that sounds like they are dates should use format: datetime or format: timestamp"
+
+        # Standards Compliance
+        - "No headers should start with X-"
 
         # Security
-        - "GET requests that have an ID in their path must not have a 'type: integer' or 'type: numeric', instead being a string with format: uuid or format: ulid. Good: '/things/61f423e5-3cac-4e82-a520-b233730637bb'. Bad: '/things/1234'."
+        # - "All operations MUST have a security scheme defined"
+
+        # TODO Trying to get uuid better than auto-incrementing numbers rule to work.
+        # - "All operation parameters with 'name: id' should use format: uuid or format: ulid so that sequential numbers cannot be used to leak data"
