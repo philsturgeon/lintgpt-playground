@@ -16,6 +16,7 @@ properties:
     example: 400
   detail:
     type: string
+    description: A human-readable explanation of what has actually gone wrong, and whether this problem is temporary or permanent.
     readOnly: true
     example: Your current balance is 30, but that costs 50.
   instance:

@@ -9,9 +9,12 @@ ruleset:
         # - "Parameter descriptions MUST explain how the client uses the parameter, not what the parameter is. Bad: “the start date” Good: “set this parameter to the earliest date you want to receive records from”."
 
         # Naming Conventions
-        - "All operation URL path components with multiple words MUST be named using hyphen-case (ie: /operation-events/{id})." 
+        # - "All operation URL path components with multiple words MUST be named using hyphen-case (ie: /operation-events/{id})." 
         - "All operation URL path components MUST be nouns, not verbs."
         - "All operation URL path components MUST be plural nouns, not singular."
+
+        # Content Types
+        - "Response bodies for errors SHOULD use a media type of application/vnd.api+json, application/problem+json, or application/problem+xml to signal the use of a proper problem document."
 
         # Status Codes
         # - 'POST requests should return a 201 or 202 status on success instead of 200'
@@ -22,7 +25,7 @@ ruleset:
         # - "Properties that sounds like they are dates should use format: datetime or format: timestamp"
 
         # Standards Compliance
-        - "No headers should start with X-"
+        # - All request headers must avoid having a name that starts with "X-".
 
         # Security
         # - "All operations MUST have a security scheme defined"

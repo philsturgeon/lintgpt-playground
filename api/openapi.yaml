@@ -16,9 +16,9 @@ servers:
 
 paths:
 
-  '/things/{id}':
+  '/vehicles/{id}':
     get:
-      operationId: get-things
+      operationId: get-vehicles
       summary: Get things
       parameters:
         - in: path
@@ -108,7 +108,7 @@ paths:
     get:
       operationId: get-unit-pins
       summary: A list of units at a site in GeoJSON format
-      description: 'As a potential donor I want to see that Protect Earth are doing real work, and seeing all the units that have been planted at a site makes the project seem transparent and real.'
+      description: 'Get all the trees and other units at a site in GeoJSON format. This can be used to display a map of units at a site, with photos, species, and what3words coordinates.'
       security: [ ]
       responses:
         '200':
@@ -120,7 +120,7 @@ paths:
         '404':
           description: Site not found.
           content:
-            application/problem+json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/Generic_Problem'
 components:

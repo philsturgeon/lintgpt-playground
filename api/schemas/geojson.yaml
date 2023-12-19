@@ -7,6 +7,7 @@ properties:
     example: "FeatureCollection"
   features:
     type: array
+    description: An array of GeoJSON features, which are basically all the pins and shapes to go on a map.
     items:
       type: object
       properties:
